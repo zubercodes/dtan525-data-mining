@@ -40,3 +40,6 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
+
+# Allow project dataset
+!data/predictive_maintenance.csv
