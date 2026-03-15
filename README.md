@@ -126,3 +126,52 @@ jupyter notebook
 M.S. Management, Data Analytics Specialization — Indiana Wesleyan University (May 2026)
 📧 mo.zubervohra24@gmail.com
 🔗 [LinkedIn](https://www.linkedin.com/in/mohammad-zuber-vohra-55b827156/)
+
+---
+
+## Course Project — Industrial Equipment Failure Predictor
+
+### Problem
+Predict machine failures before they occur using sensor data from manufacturing equipment.
+Unplanned downtime costs manufacturers ~$50 billion annually (Deloitte, 2017).
+
+### Dataset
+`data/predictive_maintenance.csv` — 10,000 records, 7 features:
+air temperature, process temperature, rotational speed, torque, tool wear, machine type → failure label
+
+### Approach
+All Chapter 2 and Chapter 5 concepts applied end-to-end in a single project:
+
+**Chapter 5 Transformers used:**
+- `StandardScaler` — normalize 7 numeric sensor readings
+- `Binarizer` — flag readings outside safe operating thresholds
+- `SimpleImputer` — handle missing sensor dropout readings
+- `OneHotEncoder` — encode machine type (L/M/H)
+- `PolynomialFeatures` — capture torque × tool_wear interaction
+- `ColumnTransformer` — different transforms per feature type
+- `Pipeline` — full end-to-end preprocessing + classifier chain
+
+**Chapter 2 Classifiers used:**
+- `DecisionTreeClassifier` (main model) — interpretable rules for engineers
+- `GaussianNB` — probabilistic baseline with high recall
+
+### Results
+
+| Metric | Decision Tree | Naive Bayes |
+|---|---|---|
+| Accuracy | **99.0%** | 95.4% |
+| Recall (failures caught) | **96.0%** | 97.4% |
+| F1-Score | **95.6%** | 82.8% |
+| CV Accuracy (5-fold) | **99.3% ± 0.2%** | 95.5% ± 0.3% |
+
+### Key Finding
+Binarizer-derived flags (`high_tool_wear`, `high_torque`) drive 74.5% of all
+model decisions — proving that Chapter 5 preprocessing quality directly
+determines classifier performance.
+
+### Files
+| File | Description |
+|---|---|
+| `notebooks/Project_IndustrialFailurePredictor.ipynb` | Full project notebook |
+| `html_exports/Project_IndustrialFailurePredictor_MohammadZuberVohra.html` | Executed HTML export |
+| `data/predictive_maintenance.csv` | Dataset (10,000 records) |
